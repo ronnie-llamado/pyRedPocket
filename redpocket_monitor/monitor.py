@@ -62,8 +62,14 @@ class RedPocketDataExtractor( object ):
         self.balances = []
         for iden in details_ids:
             r = client.get( url=self.GET_PARAMS_URL % iden )
-            data_params = json.loads( r.text )
-            self.balances.append( data_params[ 'return_data' ] )
+            data_params = json.loads( r.text )[ 'return_data' ]
+
+            now = datetime.datetime.now()
+            data_params[ 'remaining_days' ] = ( datetime.datetime.strptime( data_params[ 'aed' ], '%m/%d/%Y' ) - now ).days
+            data_params[ 'date' ] = now.date().strftime( '%m-%d-%y' )
+            data_params[ 'time' ] = now.time().strftime( '%I:%M %p' )
+
+            self.balances.append( data_params )
 
 
 def getRedPocketBalances():
