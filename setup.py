@@ -17,5 +17,6 @@ setup(
     version=find_version(),
     url='https://github.com/ronnie-llamado/redpocket-monitor',
     author='Ronnie Llamado',
-    packages=find_packages( exclude=( 'tests', ) )
+    include_package_data=True,
+    packages=find_packages( exclude=( 'tests', ) ),
 )
