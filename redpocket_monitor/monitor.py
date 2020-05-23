@@ -64,10 +64,16 @@ class RedPocketDataExtractor( object ):
             r = client.get( url=self.GET_PARAMS_URL % iden )
             data_params = json.loads( r.text )[ 'return_data' ]
 
+            # add and format datetime information
+            DATE_FMT = '%m/%d/%y'
+            TIME_FMT = '%I:%M %p'
+
             now = datetime.datetime.now()
-            data_params[ 'remaining_days' ] = ( datetime.datetime.strptime( data_params[ 'aed' ], '%m/%d/%Y' ) - now ).days
-            data_params[ 'date' ] = now.date().strftime( '%m-%d-%y' )
-            data_params[ 'time' ] = now.time().strftime( '%I:%M %p' )
+            data_params[ 'aed' ] = datetime.datetime.strptime( data_params[ 'aed' ], '%m/%d/%Y' )
+            data_params[ 'remaining_days' ] = ( data_params[ 'aed' ] - now ).days
+            data_params[ 'aed' ] = data_params[ 'aed' ].strftime( DATE_FMT )
+            data_params[ 'date' ] = now.date().strftime( DATE_FMT )
+            data_params[ 'time' ] = now.time().strftime( TIME_FMT )
 
             self.balances.append( data_params )
 

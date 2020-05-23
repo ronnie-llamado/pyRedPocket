@@ -20,7 +20,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'rp-bals = redpocket_monitor.scripts.tools:print_balances',
+            'print-rp-balances = redpocket_monitor.scripts.tools:print_balances',
         ]
     },
     packages=find_packages( exclude=( 'tests', ) ),
