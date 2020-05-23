@@ -20,7 +20,8 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'print-rp-balances = redpocket_monitor.scripts.tools:print_balances',
+            'get-rp-balances = redpocket_monitor.scripts.tools:get_balances',
+            'dump-balances = redpocket_monitor.scripts.tools:dump_balances',
         ]
     },
     packages=find_packages( exclude=( 'tests', ) ),

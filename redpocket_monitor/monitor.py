@@ -2,6 +2,7 @@
 import configparser
 import datetime
 import json
+import os
 from pkg_resources import resource_filename
 import re
 import requests
@@ -20,11 +21,14 @@ class RedPocketDataExtractor( object ):
     GET_DETAILS_ID_URL = 'https://www.redpocket.com/account/get-other-lines'
     GET_PARAMS_URL = 'https://www.redpocket.com/account/get-details?id=%s&type=api'
 
-    def __init__( self, cfg_fil='redpocket.ini' ):
+    def __init__( self, cfg_fil='redpocket.ini', save=False ):
         self.config = configparser.ConfigParser()
         self.cfg_fil = resource_filename( __name__, 'config/' + cfg_fil )
         self.config.read( self.cfg_fil )
         self.balances = []
+
+        self.save = save
+        self.data_fil = ''
 
         self.get_balances()
 
@@ -69,6 +73,7 @@ class RedPocketDataExtractor( object ):
             TIME_FMT = '%I:%M %p'
 
             now = datetime.datetime.now()
+            data_params[ 'datetime' ] = now
             data_params[ 'aed' ] = datetime.datetime.strptime( data_params[ 'aed' ], '%m/%d/%Y' )
             data_params[ 'remaining_days' ] = ( data_params[ 'aed' ] - now ).days
             data_params[ 'aed' ] = data_params[ 'aed' ].strftime( DATE_FMT )
@@ -77,14 +82,31 @@ class RedPocketDataExtractor( object ):
 
             self.balances.append( data_params )
 
+        if self.save:
+            self.saveBalances()
 
-def getRedPocketBalances():
-    data = RedPocketDataExtractor()
+    def saveBalances( self ):
+        save_params = [ 'datetime', 'mdn', 'voice_balance', 'messaging_balance', 'data_balance' ]
+
+        # check if file exists
+        self.data_fil = resource_filename( __name__, 'data/data.csv' )
+        if not os.path.exists( self.data_fil ):
+            with open( self.data_fil, 'w+' ) as fil:
+                fil.write( ','.join( save_params ) + '\n' )
+        
+        for balance in self.balances:
+            db_params = { k: v for k, v in balance.items() if k in save_params }
+            db_params.update( { k: '-1' for k,v in db_params.items() if v == 'Unlimited' } )
+            db_params.update( { k: v.replace( ',', '' ) for k,v in db_params.items() if 'balance' in k } )
+            with open( self.data_fil, 'a' ) as fil:
+                fil.write( '{datetime},{mdn},{voice_balance},{messaging_balance},{data_balance}\n'.format( **db_params ) )
+
+
+def getRedPocketBalances( **kwargs ):
+    data = RedPocketDataExtractor( **kwargs )
     return data.balances
 
 if __name__ == '__main__':
 
     data = RedPocketDataExtractor()
 
-    from pprint import pprint
-    pprint( getRedPocketBalances() )
