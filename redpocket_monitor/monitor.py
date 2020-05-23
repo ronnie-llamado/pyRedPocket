@@ -22,7 +22,8 @@ class RedPocketDataExtractor( object ):
 
     def __init__( self, cfg_fil='redpocket.ini' ):
         self.config = configparser.ConfigParser()
-        self.config.read( resource_filename( __name__, cfg_fil ) )
+        self.cfg_fil = resource_filename( __name__, 'config/' + cfg_fil )
+        self.config.read( self.cfg_fil )
         self.balances = []
 
         self.get_balances()
@@ -54,8 +55,8 @@ class RedPocketDataExtractor( object ):
 
             # save details id to config for future GETs
             self.config[ 'redpocket' ][ 'details_ids' ] = json.dumps( details_ids )
-            with open( cfg_fil, 'w' ) as fil:
-                config.write( fil )
+            with open( self.cfg_fil, 'w+' ) as fil:
+                self.config.write( fil )
 
         # GET balance data
         self.balances = []
@@ -65,8 +66,8 @@ class RedPocketDataExtractor( object ):
             self.balances.append( data_params[ 'return_data' ] )
 
 
-def getRedPocketBalances( cfg_fil='redpocket.ini' ):
-    data = RedPocketDataExtractor( cfg_fil )
+def getRedPocketBalances():
+    data = RedPocketDataExtractor()
     return data.balances
 
 if __name__ == '__main__':
