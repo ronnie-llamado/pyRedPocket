@@ -10,4 +10,13 @@ c = Client(username, password)
 lines = c.getLines()
 for l in lines:
     d = c.getDetails(l)
-    print(d.balances)
+    nd = {
+        'time': d.timestamp,
+        'phone_number': d.data['mdn'],
+        'data': d.data_balance,
+        'messaging': d.messaging_balance,
+        'voice': d.voice_balance,
+        'start_date': d.start_date,
+        'end_date': d.end_date,
+    }
+    print( '{phone_number}, {start_date}, {end_date}, {time}, {data}, {messaging}, {voice}'.format(**nd))

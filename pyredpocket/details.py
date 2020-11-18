@@ -28,11 +28,40 @@ class LineDetails(AccountDetails):
         super(LineDetails, self).__init__(response, timestamp=timestamp)
 
     @property
+    def start_date(self):
+        return self.data['recurring']['last_date']
+
+    @property
+    def end_date(self):
+        return self.data['aed']
+
+    @property
+    def data_balance(self):
+        value = self.data['data_balance']
+        if value == 'Unlimited':
+            return -1
+        return int(value.replace(',',''))
+
+    @property
+    def messaging_balance(self):
+        value = self.data['messaging_balance']
+        if value == 'Unlimited':
+            return -1
+        return int(value.replace(',',''))
+
+    @property
+    def voice_balance(self):
+        value = self.data['voice_balance']
+        if value == 'Unlimited':
+            return -1
+        return int(value.replace(',',''))
+
+    @property
     def balances(self):
         return {
-            'data': self.data['data_balance'],
-            'messaging': self.data['messaging_balance'],
-            'voice': self.data['voice_balance'],
+            'data': self.data_balance,
+            'messaging': self.messaging_balance,
+            'voice': self.voice_balance,
         }
 
     @property
