@@ -2,5 +2,5 @@
 minversion = "6.0"
 addopts = "-ra -q"
 testpaths = [
-    "pyRedPocket/tests",
+    "pyredpocket/tests",
 ]

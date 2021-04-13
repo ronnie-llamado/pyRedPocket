@@ -47,12 +47,12 @@ class LineDetails:
     return_text: InitVar[str]
     return_data: InitVar[str]
     phone_number: str = '0000000000'
-    voice_balance: str = '0'
-    messaging_balance: str = '0'
-    data_balance: str = '0'
+    voice_balance: int = 0
+    messaging_balance: int = 0
+    data_balance: int = 0
     time: int = 0
-    start_date: str = '00/00/0000'
-    end_date: str = '00/00/0000'
+    start_date: datetime.date = None
+    end_date: datetime.date = None
 
     def __post_init__(self, return_code, return_text, return_data):
         self.time = time.time()
