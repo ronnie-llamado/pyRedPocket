@@ -1,5 +1,5 @@
 
-import datetime
+from datetime import datetime
 import time
 
 
@@ -40,21 +40,21 @@ class LineDetails(AccountDetails):
         value = self.data['data_balance']
         if value == 'Unlimited':
             return -1
-        return int(value.replace(',',''))
+        return int(value.replace(',', ''))
 
     @property
     def messaging_balance(self):
         value = self.data['messaging_balance']
         if value == 'Unlimited':
             return -1
-        return int(value.replace(',',''))
+        return int(value.replace(',', ''))
 
     @property
     def voice_balance(self):
         value = self.data['voice_balance']
         if value == 'Unlimited':
             return -1
-        return int(value.replace(',',''))
+        return int(value.replace(',', ''))
 
     @property
     def balances(self):
@@ -66,4 +66,6 @@ class LineDetails(AccountDetails):
 
     @property
     def days_remaining(self):
-        return (datetime.datetime.strptime(self.data['aed'], '%m/%d/%Y') - datetime.datetime.now()).days
+        return (
+            datetime.strptime(self.data['aed'], '%m/%d/%Y') - datetime.now()
+        ).days

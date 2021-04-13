@@ -5,10 +5,11 @@ import requests
 
 from .details import AccountDetails, LineDetails
 
-URL_LOGIN = 'https://www.redpocket.com/login'
-URL_POST_LOGIN = 'https://www.redpocket.com/my-lines'
-URL_GET_OTHER_LINES = 'https://www.redpocket.com/account/get-other-lines'
-URL_GET_DETAILS = 'https://www.redpocket.com/account/get-details?id={}&type=api'
+BASE_URL = 'https://www.redpocket.com/'
+URL_LOGIN = BASE_URL + 'login'
+URL_POST_LOGIN = BASE_URL + 'https://www.redpocket.com/my-lines'
+URL_GET_OTHER_LINES = BASE_URL + 'account/get-other-lines'
+URL_GET_DETAILS = BASE_URL + 'account/get-details?id={}&type=api'
 
 
 class Client(object):
@@ -23,7 +24,7 @@ class Client(object):
         self.login()
 
     def _extract_csrf(self, text):
-        return re.findall('name="csrf" value="([\w|-]+)"', text)[0]
+        return re.findall(r'name="csrf" value="([\w|-]+)"', text)[0]
 
     def login(self):
         r = self.__client.get(URL_LOGIN)
@@ -37,12 +38,13 @@ class Client(object):
             self.__loggedIn = True
         else:
             raise Exception
-    
+
     def getLines(self):
         if not self.__loggedIn:
             self.login()
         r = AccountDetails(self.__client.get(URL_GET_OTHER_LINES))
-        self.__hashIds = list(map(lambda x: x.get('hash'), r.data['confirmedLines']))
+        self.__hashIds = \
+            list(map(lambda x: x.get('hash'), r.data['confirmedLines']))
         return self.__hashIds
 
     def getDetails(self, hashId):

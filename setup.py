@@ -1,9 +1,5 @@
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
-setup(
-    name='pyredpocket',
-    url='https://github.com/ronnie-llamado/redpocket-monitor',
-    author='Ronnie Llamado',
-    packages=find_packages( exclude=( 'tests', ) ),
-)
+if __name__ == "__main__":
+    setup()
