@@ -1,71 +1,82 @@
 
+from dataclasses import dataclass, InitVar
 from datetime import datetime
 import time
 
 
-class AccountDetails(object):
+@dataclass
+class AccountLineDetails:
+    hash: str
 
-    def __init__(self, response, timestamp=True):
-        self.__response = response.json()
-        self.timestamp = time.time() if timestamp else None
-
-    @property
-    def code(self):
-        return self.__response['return_code']
-
-    @property
-    def text(self):
-        return self.__response['return_text']
-
-    @property
-    def data(self):
-        return self.__response['return_data']
+    @classmethod
+    def from_dict(cls, **kwargs):
+        args = {k: kwargs.get(k) for k in cls.__annotations__.keys()}
+        return cls(**args)
 
 
-class LineDetails(AccountDetails):
+@dataclass
+class AccountDetails:
+    return_code: int
+    return_text: str
+    return_data: str
 
-    def __init__(self, response, timestamp=True):
-        super(LineDetails, self).__init__(response, timestamp=timestamp)
+    def __post_init__(self):
+        self._confirmed_lines = \
+            [
+                AccountLineDetails.from_dict(**i)
+                for i in self.return_data['confirmedLines']
+            ]
 
-    @property
-    def start_date(self):
-        return self.data['recurring']['last_date']
-
-    @property
-    def end_date(self):
-        return self.data['aed']
+    @classmethod
+    def from_dict(cls, **kwargs):
+        args = {k: kwargs.get(k) for k in cls.__annotations__.keys()}
+        return cls(**args)
 
     @property
-    def data_balance(self):
-        value = self.data['data_balance']
-        if value == 'Unlimited':
+    def confirmed_lines(self):
+        return self._confirmed_lines
+
+
+def string2date(redPocketDateString):
+    return datetime.strptime(redPocketDateString, '%m/%d/%Y').date()
+
+
+@dataclass
+class LineDetails:
+    return_code: InitVar[int]
+    return_text: InitVar[str]
+    return_data: InitVar[str]
+    phone_number: str = '0000000000'
+    voice_balance: str = '0'
+    messaging_balance: str = '0'
+    data_balance: str = '0'
+    time: int = 0
+    start_date: str = '00/00/0000'
+    end_date: str = '00/00/0000'
+
+    def __post_init__(self, return_code, return_text, return_data):
+        self.time = time.time()
+        self.phone_number = return_data['mdn']
+
+        self.voice_balance = self._cleanse_data(return_data['voice_balance'])
+        self.messaging_balance = \
+            self._cleanse_data(return_data['messaging_balance'])
+        self.data_balance = self._cleanse_data(return_data['data_balance'])
+
+        self.start_date = string2date(return_data['recurring']['last_date'])
+        self.end_date = string2date(return_data['aed'])
+
+    @classmethod
+    def from_dict(cls, **kwargs):
+        args = {k: kwargs.get(k) for k in cls.__annotations__.keys()}
+        return cls(**args)
+
+    def _cleanse_data(self, value):
+        if value in ['Unlimited', 'N/A']:
             return -1
-        return int(value.replace(',', ''))
-
-    @property
-    def messaging_balance(self):
-        value = self.data['messaging_balance']
-        if value == 'Unlimited':
-            return -1
-        return int(value.replace(',', ''))
-
-    @property
-    def voice_balance(self):
-        value = self.data['voice_balance']
-        if value == 'Unlimited':
-            return -1
-        return int(value.replace(',', ''))
-
-    @property
-    def balances(self):
-        return {
-            'data': self.data_balance,
-            'messaging': self.messaging_balance,
-            'voice': self.voice_balance,
-        }
+        else:
+            return int(value.replace(',', ''))
 
     @property
     def days_remaining(self):
-        return (
-            datetime.strptime(self.data['aed'], '%m/%d/%Y') - datetime.now()
-        ).days
+        return (self.end_date - datetime.now().date()).days
