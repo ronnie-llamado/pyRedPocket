@@ -1,13 +1,15 @@
 
 from datetime import datetime
 import json
+import os
 
-from pyredpocket.details import AccountDetails, LineDetails
+from ..details import AccountDetails, LineDetails
 
+DIRPATH = os.path.dirname(__file__)
 
 def test_account_details():
 
-    with open('data/get-other-lines.json', 'r') as fil:
+    with open(DIRPATH + '/data/get-other-lines.json', 'r') as fil:
         jsonDict = json.loads(fil.read())
 
     deets = AccountDetails.from_dict(**jsonDict)
@@ -17,7 +19,7 @@ def test_account_details():
 
 
 def test_account_line_details():
-    with open('data/get-other-lines.json', 'r') as fil:
+    with open(DIRPATH + '/data/get-other-lines.json', 'r') as fil:
         jsonDict = json.loads(fil.read())
 
     deets = AccountDetails.from_dict(**jsonDict)
@@ -25,7 +27,7 @@ def test_account_line_details():
 
 
 def test_line_details():
-    with open('data/get-details.json', 'r') as fil:
+    with open(DIRPATH + '/data/get-details.json', 'r') as fil:
         jsonDict = json.loads(fil.read())
 
     deets = LineDetails.from_dict(**jsonDict)

@@ -1,9 +1,12 @@
 
+import os
+
 import pytest
 import requests
 
-from pyredpocket import RedPocket, RedPocketLoginError
+from ..client import RedPocket, RedPocketLoginError
 
+DIRPATH = os.path.dirname(__file__)
 
 def test_fail_login():
 
@@ -36,7 +39,7 @@ def test_extract_csrf_correct():
         auto=False,
     )
 
-    with open('data/login.html', 'r') as fil:
+    with open(DIRPATH + '/data/login.html', 'r') as fil:
         html = fil.read()
 
     csrf = client._extract_csrf(html)
