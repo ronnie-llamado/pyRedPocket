@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from .details import AccountDetails, LineDetails
+from pyredpocket.details import AccountDetails, LineDetails
 
 BASE_URL = 'https://www.redpocket.com/'
 URL_LOGIN = BASE_URL + 'login'
@@ -12,56 +12,67 @@ URL_GET_OTHER_LINES = BASE_URL + 'account/get-other-lines'
 URL_GET_DETAILS = BASE_URL + 'account/get-details?id={}&type=api'
 
 
-class Client(object):
+class RedPocketLoginError(Exception):
+    pass
 
-    def __init__(self, username, password):
+
+class RedPocket(object):
+
+    def __init__(self, username, password, auto=True):
         self._client = requests.Session()
         self._logged_in = False
         self._username = username
         self._password = password
 
-        self.lines = []
-        self.details = {}
-
-        self._process()
+        self.hashes = []
+        self.details = []
+    
+        if auto:
+            self.process()
 
     def _extract_csrf(self, text):
         return re.findall(r'name="csrf" value="([\w|-]+)"', text)[0]
 
-    def _process(self):
+    def process(self):
         if not self._logged_in:
             self._login()
 
-        self.lines = self._get_lines()
+        self.hashes = self._get_hashes()
 
-        for lin in self.lines:
-            self.details[lin] = self._get_details(lin)
+        for has in self.hashes:
+            self.details.append(self._get_details(has))
 
     def _login(self):
-        r = self._client.get(URL_LOGIN)
-        d = {
+
+        # 
+        req = self._client.get(URL_LOGIN)
+        req.raise_for_status()
+        data = {
             'mdn': self._username,
             'password': self._password,
-            'csrf': self._extract_csrf(r.text),
+            'csrf': self._extract_csrf(req.text),
         }
-        req = self._client.post(URL_LOGIN, data=d)
+
+        req = self._client.post(URL_LOGIN, data=data)
+        req.raise_for_status()
+
         if req.url == URL_POST_LOGIN:
             self._loggedIn = True
         else:
-            raise Exception
+            raise RedPocketLoginError
 
-    def _get_lines(self):
+    def _get_hashes(self):
         if not self._logged_in:
             self._login()
 
         req = self._client.get(URL_GET_OTHER_LINES)
-        if req.status_code != 200:
-            raise Exception
+        req.raise_for_status()
+
         processed_details = AccountDetails.from_dict(**req.json())
         return [i.hash for i in processed_details.confirmed_lines]
 
     def _get_details(self, hashId):
         req = self._client.get(URL_GET_DETAILS.format(hashId))
-        if req.status_code != 200:
-            raise Exception
+        req.raise_for_status()
+
         return LineDetails.from_dict(**req.json())
