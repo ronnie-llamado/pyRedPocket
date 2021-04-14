@@ -4,7 +4,7 @@ import os
 import pytest
 import requests
 
-from ..client import RedPocket, RedPocketLoginError
+from pyredpocket.client import RedPocket, RedPocketLoginError
 
 DIRPATH = os.path.dirname(__file__)
 

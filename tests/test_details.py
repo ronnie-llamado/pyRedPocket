@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 import os
 
-from ..details import AccountDetails, LineDetails
+from pyredpocket.details import AccountDetails, LineDetails
 
 DIRPATH = os.path.dirname(__file__)
 
