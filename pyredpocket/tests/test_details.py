@@ -7,6 +7,7 @@ from ..details import AccountDetails, LineDetails
 
 DIRPATH = os.path.dirname(__file__)
 
+
 def test_account_details():
 
     with open(DIRPATH + '/data/get-other-lines.json', 'r') as fil:

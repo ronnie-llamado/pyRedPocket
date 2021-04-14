@@ -18,15 +18,15 @@ class RedPocketLoginError(Exception):
 
 class RedPocket(object):
 
-    def __init__(self, username, password, auto=True):
+    def __init__(self, username, password, auto=True, hashes=[]):
         self._client = requests.Session()
         self._logged_in = False
         self._username = username
         self._password = password
 
-        self.hashes = []
+        self.hashes = hashes
         self.details = []
-    
+
         if auto:
             self.process()
 
@@ -37,14 +37,15 @@ class RedPocket(object):
         if not self._logged_in:
             self._login()
 
-        self.hashes = self._get_hashes()
+        if self.hashes == []:
+            self.hashes = self._get_hashes()
 
         for has in self.hashes:
             self.details.append(self._get_details(has))
 
     def _login(self):
 
-        # 
+        #
         req = self._client.get(URL_LOGIN)
         req.raise_for_status()
         data = {

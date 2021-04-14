@@ -8,6 +8,7 @@ from ..client import RedPocket, RedPocketLoginError
 
 DIRPATH = os.path.dirname(__file__)
 
+
 def test_fail_login():
 
     with pytest.raises(RedPocketLoginError):

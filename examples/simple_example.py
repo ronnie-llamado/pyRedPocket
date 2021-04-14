@@ -1,10 +1,10 @@
 
 import os
 
-from pyredpocket import RedPocket 
+from pyredpocket import RedPocket
 
 client = RedPocket(
-    username=os.getenv('REDPOCKET_USER'), 
+    username=os.getenv('REDPOCKET_USER'),
     password=os.getenv('REDPOCKET_PASSWORD'),
 )
 
