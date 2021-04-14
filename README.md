@@ -1,8 +1,10 @@
 [![build](https://github.com/ronnie-llamado/pyRedPocket/actions/workflows/build.yml/badge.svg)](https://github.com/ronnie-llamado/pyRedPocket/actions/workflows/build.yml)
+[![PyPI version](https://badge.fury.io/py/pyredpocket.svg)](https://badge.fury.io/py/pyredpocket)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pyredpocket)
 
 # pyRedPocket
 
-Python interface to RedPocket Mobile's website - to get data, messaging and voice balances.
+Python interface to RedPocket Mobile's website - to get current data, messaging and voice balances.
 
 ## Installation
 
