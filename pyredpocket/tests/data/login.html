@@ -1,234 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    </head>
-
-    <body>
-        <header class="navbar-fixed-top">
-            <div class="top-bar hidden-xs">
-                <div class="container">
-
-                    <div class="col-md-6">
-                      <p class="header_so"></p>
-                    </div>
-
-                    <div class="col-md-6">
-                      <ul class="head-cart pull-right">
-                        <li><a  href="/shop/cart" id="shopping_cart"><i class="fa fa-shopping-cart"></i> Cart ()</a></li>
-
-
-								<li><a  href="/my-lines"><i class="fa fa-lock"></i>XXXXXXXX</a></li>
-								<li><a  href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-
-
-
-                      </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="navigation">
-                              <nav class="navbar">
-        <div class="container">
-          <div class="navbar-header">
-            <ul class="head-cart pull-right hidden-sm hidden-md hidden-lg">
-                <li><a href="/shop/cart" id="shopping_cart1"><i class="fa fa-shopping-cart"></i> Cart (0)</a></li>
-
-                                <li><a  href="/refill/user"><i class="fa fa-lock"></i>XXXXXXXX</a></li>
-                                <li><a  href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-
-            </ul>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand hidden-xs" href="/">
-
-                    <img src="/images/logo-rpm.png" alt="Red Pocket Mobile"/>
-
-            </a>
-            <a class="navbar-brand hidden-sm hidden-md hidden-lg fp_logo_mobile" href="/">
-                <img src="/images/freedom_pop/fp_logo_mobile.png" alt="Red Pocket Mobile"/>
-            </a>
-            <a class="navbar-brand hidden-sm hidden-md hidden-lg fp_logo_mobile_hidden" href="/">
-                <img src="/images/logo-small.png" alt="Red Pocket Mobile"/>
-            </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right animate-on-hover">
-                                                                                                                                                                        <li>
-                                <a href="/">
-                                    Home                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/plans">
-                                    Plans                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/shop">
-                                    Shop                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/activate">
-                                    Activate                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/refill">
-                                    Refill                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/coverage">
-                                    Coverage                                </a>
-                            </li>
-                                                                                                                                                                                                <li>
-                                <a href="/help">
-                                    Help                                </a>
-                            </li>
-                                                                <li class="hidden-sm hidden-md hidden-lg close-menu"><div data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-times" aria-hidden="true"></i></div></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-            </div>            
-            
-        </header>
-
-        <div class="content">
-            <div class="container">
-            <div id="error-text"></div>
-        	    <div id="alertbox-waiting-text"></div>
-
-                
-<div class="col-md-9 col-md-offset-1-5 uplifted_login">
-
-<h1>Welcome to Red Pocket Mobile!</h1>
-
-    <div class="col-md-6 account-log-in float_op">
-        <form class="form-signin" method="post" action="/login">
-            <h3 class="form-signin-heading">Sign In or Register below to get started.</h3>
-                                    <div class="form-group">
-            <label class="sr-only" for="mdn">Your username</label>            <input type="text" name="mdn" class="form-control" placeholder="Username" required="required" autofocus="autofocus" value="">            </div>
-            <div class="form-group">
-            <label class="sr-only" for="password">Password</label>            <input type="password" name="password" class="form-control" placeholder="Password" required="required" value="">            </div>
-            <div class="checkbox" style="display: none">
-                <label>
-                    <input type="hidden" name="remember_me" value="0"><input type="checkbox" name="remember_me" value="1"> Remember me
-                </label>
-            </div>
-            <input type="hidden" name="redirect_url" value="">            <input type="hidden" name="csrf" value="5b0ef5c21e548e99d6c12226223f5850-7ed41f7da4818f6a4f56f860d47020d7">            
-            <div class="forgot_pass">
-              <a href="/reset-password" class="">Need help signing in?</a>
-            </div>
-            
-            <div class="col-md-5 col-xs-6">
-            <a href="/signin" class="btn btn-red add-nl nd710_add_nl" id="id_register_button">Register</a>
-            </div>
-
-            <div class="col-md-7 col-xs-6">
-            <button class="btn btn-red add-nl nd710_add_nl nd710_add_nl_red" type="submit">Sign in</button>
-            </div>
-			
-			<div style="clear: both;"></div>
-			
-            <!-- <hr />
-             <div class="alert-msg">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              Were you an auto-refill customer before 11/07/2017?<br>
-              <a href="https://recurring.redpocket.com/customer/account"><strong>CLICK HERE TO SIGN IN</strong></a>
-            </div>
-            <hr> 
-
-            <div class="inline-buttons">
-                <a href="/reset-password" class="btn btn-grey">Forgot password?</a>
-                <a href="/signin" class="btn btn-grey" id="id_register_button">Register</a>
-            </div> -->
-        </form>
+<div class="col-md-6 account-log-in float_op">
+<form class="form-signin" method="post" action="/login">
+    <h3 class="form-signin-heading">Sign In or Register below to get started.</h3>
+			    <div class="form-group">
+    <label class="sr-only" for="mdn">Your username</label>            <input type="text" name="mdn" class="form-control" placeholder="Username" required="required" autofocus="autofocus" value="">            </div>
+    <div class="form-group">
+    <label class="sr-only" for="password">Password</label>            <input type="password" name="password" class="form-control" placeholder="Password" required="required" value="">            </div>
+    <div class="checkbox" style="display: none">
+	<label>
+	    <input type="hidden" name="remember_me" value="0"><input type="checkbox" name="remember_me" value="1"> Remember me
+	</label>
+    </div>
+    <input type="hidden" name="redirect_url" value="">            <input type="hidden" name="csrf" value="5b0ef5c21e548e99d6c12226223f5850-7ed41f7da4818f6a4f56f860d47020d7">            
+    <div class="forgot_pass">
+      <a href="/reset-password" class="">Need help signing in?</a>
     </div>
     
-    <div class="col-md-6 float_op" style="text-align: center;">
-        <a href="/refer-a-friend">
-           <img class="big_logo" src="https://my.redpocketmobile.com/media/763dd6544b40db34d00d014a572ea888_mobile refer your friend.png" />
-        </a>   
+    <div class="col-md-5 col-xs-6">
+    <a href="/signin" class="btn btn-red add-nl nd710_add_nl" id="id_register_button">Register</a>
     </div>
-    <!--col-->
 
-        </div>
-
-        
-        <footer>
-            <div class="container">
-              <div class="inner-footer clearfix">
-                  <div class="col-md-2 col-xs-6">
-                      <h3>Make the Switch</h3>
-                      <ul>
-                        <li><a href="/plans">Wireless Plans</a></li>
-                        <li><a href="/activate">Transfer Your Number</a></li>
-                        <li><a href="/international-calling">Free International Calling</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <h3>Get Started</h3>
-                      <ul>
-                        <li><a href="/activate">Activate Your SIM</a></li>
-                        <li><a href="/configure-handset">Configure Your Device</a></li>
-                        <li><a href="/refill">Refill Your Account</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-md-2 col-xs-6">
-                      <h3>Join Us</h3>
-                      <ul>
-                        <li><a href="https://redpocket.refersion.com/" >Become an Affiliate</a></li>
-                        <li><a href="/dealers">Become a Dealer</a></li>
-                        <li><a href="http://my.redpocketmobile.com/">Dealer Login</a></li>
-                      </ul>
-                  </div>
-                  <div class="col-md-3 col-xs-6">
-                      <h3>Explore</h3>
-                      <ul>
-                        <li><a href="/about-us">About Us</a></li>
-                        <li><a href="/contact-us">Contact Us</a></li>
-                        <li><a href="/my-lines">Visit Your Account</a></li>
-                        <li><a href=""></a></li>
-                      </ul>
-                  </div>
-                  <div class="col-md-3 col-xs-12">
-                      <h3>Follow</h3>
-                      <ul class="footer-social-list">
-                        <li><a target="_blank" href="https://www.facebook.com/redpocketmobile/"><img src="/images/RP FB Icon.png" /></a></li>
-                        <li><a target="_blank" href="https://twitter.com/RedPocketMobile"><img src="/images/RP TW Icon.png" /></a></li>
-                        <li><a target="_blank" href="https://www.instagram.com/redpocketmobile/"><img src="/images/RP IG Icon.png" /></a></li>
-                        <li><a target="_blank" href="http://weibo.com/redpocketmobile"><img src="/images/RP Weibo Icon .png" /></a></li>
-                      </ul>
-                      <a href="https://www.bbb.org/us/ca/thousand-oaks/profile/cell-phone-supplies/red-pocket-mobile-1236-92011052/#sealclick" target="_blank" rel="nofollow"><img src="https://seal-santabarbara.bbb.org/seals/blue-seal-120-61-bbb-92011052.png" style="border: 0px none; max-width: 99px;" alt="Red Pocket Mobile BBB Business Review"></a>
-                  </div>
-              </div>
-              <div class="copyright">
-                <p>© 2006- Red Pocket Mobile. All rights reserved.</p>
-                <ul>
-                  <li><a href="/terms_and_conditions">Terms and Conditions</a></li>
-                  <li><a href="/privacy">Privacy Statement</a></li>
-                  <li><a href="/return-policy">Return Policy</a></li>
-                  <li><a href="/hac">HAC</a></li>
-                  <li><a href="/openinternet">Open Internet Statement</a></li>
-                </ul>
-              </div>
-            </div>
-        </footer>
-
-<!--<div class="sc-popup">
-<div class="container sc-popup-inner">
-
-<div class="col-md-9">
-<p>RedPocket.com uses cookies to ensure you get the best experience on our website. By continuing to browse our site, you accept the use of cookies. </p>
+    <div class="col-md-7 col-xs-6">
+    <button class="btn btn-red add-nl nd710_add_nl nd710_add_nl_red" type="submit">Sign in</button>
+    </div>
+		
+		<div style="clear: both;"></div>
+		
+</form>
 </div>
-<div class="col-md-3"><a id="cookies_agreed_btn" style="cursor:pointer;">I Agree</a></div>
-
-</div>
-sc-popup-inner
-</div>
-sc-popup-->
-
-
-    </body>
-</html>
