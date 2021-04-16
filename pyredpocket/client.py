@@ -24,6 +24,8 @@ class RedPocket(object):
         self._username = username
         self._password = password
 
+        if not isinstance(hashes, list):
+            hashes = [hashes]
         self.hashes = hashes
         self.details = []
 

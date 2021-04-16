@@ -1,6 +1,7 @@
 
 from dataclasses import dataclass, InitVar
 from datetime import datetime
+import re
 import time
 
 
@@ -46,6 +47,7 @@ class LineDetails:
     return_code: InitVar[int]
     return_text: InitVar[str]
     return_data: InitVar[str]
+    title: InitVar[str]
     phone_number: str = '0000000000'
     voice_balance: int = 0
     messaging_balance: int = 0
@@ -53,8 +55,9 @@ class LineDetails:
     timestamp: int = 0
     start_date: datetime.date = None
     end_date: datetime.date = None
+    hash: str = ''
 
-    def __post_init__(self, return_code, return_text, return_data):
+    def __post_init__(self, return_code, return_text, return_data, title):
         self.timestamp = time.time()
         self.phone_number = return_data['mdn']
 
@@ -65,6 +68,12 @@ class LineDetails:
 
         self.start_date = string2date(return_data['recurring']['last_date'])
         self.end_date = string2date(return_data['aed'])
+
+        mat = re.findall(r'id (\w+)', title)
+        try:
+            self.hash = mat[0]
+        except IndexError:
+            raise Warning(f"Unable to parse 'hash' from title ('{title}')")
 
     @classmethod
     def from_dict(cls, **kwargs):

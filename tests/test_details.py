@@ -39,3 +39,4 @@ def test_line_details():
     assert deets.timestamp != 0
     assert deets.start_date == datetime(year=2021, month=4, day=2).date()
     assert deets.end_date == datetime(year=2021, month=5, day=4).date()
+    assert deets.hash == 'A1b2C3d4'
