@@ -50,12 +50,12 @@ class LineDetails:
     voice_balance: int = 0
     messaging_balance: int = 0
     data_balance: int = 0
-    time: int = 0
+    timestamp: int = 0
     start_date: datetime.date = None
     end_date: datetime.date = None
 
     def __post_init__(self, return_code, return_text, return_data):
-        self.time = time.time()
+        self.timestamp = time.time()
         self.phone_number = return_data['mdn']
 
         self.voice_balance = self._cleanse_data(return_data['voice_balance'])

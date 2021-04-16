@@ -11,7 +11,7 @@ client = RedPocket(
 for d in client.details:
     print(d)
     print(
-        f'{d.time}, '
+        f'{d.timestamp}, '
         f'{d.phone_number}, '
         f'{d.days_remaining}, '
         f'{d.start_date}-{d.end_date}, '
