@@ -36,6 +36,6 @@ def test_line_details():
     assert deets.voice_balance == -1
     assert deets.messaging_balance == -1
     assert deets.data_balance == 2874
-    assert deets.time != 0
+    assert deets.timestamp != 0
     assert deets.start_date == datetime(year=2021, month=4, day=2).date()
     assert deets.end_date == datetime(year=2021, month=5, day=4).date()
