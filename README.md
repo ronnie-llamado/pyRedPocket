@@ -1,3 +1,9 @@
+# This project has been deprecated in favor of [python-redpocket](https://github.com/mbillow/python-redpocket).
+
+##
+## 
+Original README: 
+
 [![build](https://github.com/ronnie-llamado/pyRedPocket/actions/workflows/build.yml/badge.svg)](https://github.com/ronnie-llamado/pyRedPocket/actions/workflows/build.yml)
 [![PyPI version](https://badge.fury.io/py/pyredpocket.svg)](https://pypi.org/project/pyredpocket/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pyredpocket)](https://pypi.org/project/pyredpocket/)
